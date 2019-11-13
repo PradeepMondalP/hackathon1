@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.myui.fragment.ViewMyAllProductsFragment">
+
+  <ListView
+      android:id="@+id/id_all_data_list_view"
+      android:layout_width="match_parent"
+      android:padding="30dp"
+      android:background="@android:color/darker_gray"
+      android:layout_height="match_parent"/>
+
+</RelativeLayout>

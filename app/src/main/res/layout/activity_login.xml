@@ -65,6 +65,46 @@
                 android:padding="2dp"
                 android:textColor="@android:color/black" />
 
+<!--            <Switch-->
+<!--                android:id="@+id/id_id_switch"-->
+<!--                android:text=""-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Are you Consumer or Retailer?"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/consumer"
+                    android:layout_marginTop="10dp"
+                    android:text="Consumer"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="50dp"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/retailer"
+                    android:text="Retailer"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="50dp"
+                    />
+            </RadioGroup>
+
             <Button
                 android:id="@+id/id_login"
                 android:layout_width="match_parent"

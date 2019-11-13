@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        <TextView
+        <EditText
             android:id="@+id/id_search_item_consumer"
             android:padding="15dp"
             android:layout_toLeftOf="@+id/id_search"

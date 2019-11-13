@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference userRef , rootRef;
     private String currentuserId , fetchingCustomerType="";
 
-
+    private RadioGroup radioGroup;
+    private RadioButton radioConsumer , radioRetailer;
+    int radioStatus=R.id.consumer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,29 @@ public class LoginActivity extends AppCompatActivity {
 
         initialize_id();
 
+        radioConsumer = (RadioButton)findViewById(R.id.consumer);
+        radioRetailer  =(RadioButton)findViewById(R.id.retailer);
+        radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
+
         newAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendUserToRegisterActivity();
 
+            }
+        });
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i)
+                {
+                    case R.id.consumer:
+                        radioStatus=R.id.consumer;
+                        break;
+                    case R.id.retailer:
+                        radioStatus=R.id.retailer;
+                        break;
+                }
             }
         });
 
@@ -95,8 +117,16 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(task.isSuccessful())
                             {
-                                startActivity(new Intent(getApplicationContext() ,
-                                        ConsumerActivity.class));
+                                if(radioStatus==R.id.consumer)
+                                {
+                                    startActivity(new Intent(getApplicationContext(),
+                                            ConsumerActivity.class));
+                                }
+                                else
+                                {
+                                    startActivity(new Intent(getApplicationContext(),
+                                            RetailerActivity.class));
+                                }
 
                             }else
                             {
@@ -110,6 +140,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         }
+
+
+
 
 
 

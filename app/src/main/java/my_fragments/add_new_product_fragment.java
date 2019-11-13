@@ -142,7 +142,7 @@ public class add_new_product_fragment extends Fragment {
         else
         {
              DatabaseReference tempRef = retailer_product_ref
-                    .child(mProductType). child(currentuserId);
+                    .child(currentuserId). child(mProductType);
 
 
             SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");

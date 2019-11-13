@@ -15,6 +15,11 @@
             android:icon="@mipmap/sample"/>
 
         <item
+            android:title="View my products"
+            android:id="@+id/id_view_my_products"
+            android:icon="@mipmap/sample"/>
+
+        <item
             android:title="add existing product"
             android:id="@+id/id_existing"
             android:icon="@mipmap/sample"/>

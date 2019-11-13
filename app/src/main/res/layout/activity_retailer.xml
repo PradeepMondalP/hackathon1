@@ -23,6 +23,32 @@
             android:layout_height="wrap_content"/>
 
 
+
+
+           <EditText
+               android:id="@+id/id_search_item_retailer"
+               android:padding="15dp"
+               android:layout_toLeftOf="@+id/id_search"
+               android:layout_margin="8dp"
+               android:background="@drawable/input"
+               android:drawableLeft="@drawable/ic_search"
+               android:hint="Search your items"
+               android:layout_below="@+id/id_main_app_bar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+
+           <Button
+               android:id="@+id/id_search_retailer"
+               android:layout_margin="10dp"
+               android:text="search"
+               android:layout_below="@+id/id_main_app_bar"
+               android:layout_width="wrap_content"
+               android:layout_alignParentEnd="true"
+               android:layout_height="wrap_content"/>
+
+
+
+
         <FrameLayout
             android:id="@+id/id_my_retailer_fram_lay"
             android:layout_width="match_parent"
@@ -32,6 +58,11 @@
 
         </FrameLayout>
 
+        <ListView
+            android:id="@+id/id_my_list_view"
+            android:layout_below="@+id/id_my_retailer_fram_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

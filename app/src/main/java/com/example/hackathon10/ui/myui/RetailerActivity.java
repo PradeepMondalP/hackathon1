@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.hackathon10.R;
+import com.example.hackathon10.ui.myui.fragment.ViewMyAllProductsFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,6 +30,7 @@ public class RetailerActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FrameLayout frameLayout;
     private Bundle myBundle;
+
 
     public static FragmentManager fragmentManager;
 
@@ -47,6 +49,12 @@ public class RetailerActivity extends AppCompatActivity {
                 {
                     case R.id.  id_order:
                         toast("order");
+                        drawerLayout.closeDrawers();
+                        break;
+
+                    case R.id.  id_view_my_products:
+                        toast("order");
+                        openViewMyProducts();
                         drawerLayout.closeDrawers();
                         break;
 
@@ -70,6 +78,25 @@ public class RetailerActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void openViewMyProducts() {
+
+        if(findViewById(R.id.id_my_retailer_fram_lay)!=null)
+        {
+            if(myBundle!=null)
+            {
+                return;
+            }
+            fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            ViewMyAllProductsFragment obj = new ViewMyAllProductsFragment();
+
+            transaction.add(R.id.id_my_retailer_fram_lay , obj , null);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     private void openMyaddnewItemFragment() {
