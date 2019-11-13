@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:title="Consumer"
+            android:icon="@mipmap/sample"/>
+
+        <item
+            android:title="My orders"
+            android:id="@+id/id_order_my"
+            android:icon="@mipmap/sample"/>
+
+        <item
+            android:title="My Cart"
+            android:id="@+id/my_cart"
+            android:icon="@mipmap/sample"/>
+
+        <item
+            android:title="Addresses"
+            android:id="@+id/id_addedess"
+            android:icon="@mipmap/sample"/>
+
+        <item
+            android:title="logout_consumer"
+            android:id="@+id/id_log_out_2"
+            android:icon="@mipmap/sample"/>
+
+
+
+    </group>
+
+
+</menu>

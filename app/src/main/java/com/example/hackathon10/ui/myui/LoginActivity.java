@@ -1,6 +1,7 @@
 package com.example.hackathon10.ui.myui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hackathon10.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -117,7 +119,8 @@ public class LoginActivity extends AppCompatActivity {
 //                                    sendUserToConsumeractivity();
 //                                }
 
-                                startActivity(new Intent(getApplicationContext() ,RetailerActivity.class));
+                                startActivity(new Intent(getApplicationContext() ,
+                                        ConsumerActivity.class));
 
                             }else
                             {
@@ -207,5 +210,18 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),ConsumerActivity.class));
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(mUser!=null)
+        {
+              startActivity(new Intent(getApplicationContext() , ConsumerActivity.class));
+              finish();
+        }
+    }
+
 
 }

@@ -6,24 +6,34 @@
         android:checkableBehavior="single">
 
         <item
+            android:title="Retailer"
+            android:icon="@mipmap/sample"/>
+
+        <item
             android:title="orders"
-            android:id="@+id/id_routes"
+            android:id="@+id/id_order"
             android:icon="@mipmap/sample"/>
 
         <item
             android:title="add existing product"
-            android:id="@+id/id_journey_planner"
+            android:id="@+id/id_existing"
             android:icon="@mipmap/sample"/>
 
         <item
             android:title="add new product"
-            android:id="@+id/id_nearby_stations"
+            android:id="@+id/id_new_product"
             android:icon="@mipmap/sample"/>
 
         <item
-            android:title="logout"
-            android:id="@+id/id_rate_us"
+            android:title="remove product"
+            android:id="@+id/id_remov_pro"
             android:icon="@mipmap/sample"/>
+        <item
+            android:title="logout"
+            android:id="@+id/id_log_out"
+            android:icon="@mipmap/sample"/>
+
+
 
     </group>
 

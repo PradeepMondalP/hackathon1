@@ -1,0 +1,108 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="20dp"
+    android:padding="15dp"
+    android:background="#FFDDA7DD"
+    android:layout_height="match_parent"
+    tools:context="my_fragments.add_new_product_fragment">
+
+    <EditText
+
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Product Type"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/input"
+        android:id="@+id/id_product_type"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_below="@+id/id_product_type"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Name of the Product"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/input"
+        android:id="@+id/id_product_name"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Price"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:layout_below="@id/id_product_name"
+        android:drawableLeft="@drawable/input"
+        android:id="@+id/id_price"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Initial stock"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:layout_below="@id/id_price"
+        android:drawableLeft="@drawable/input"
+        android:id="@+id/id_initial_stock"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+
+
+    <EditText
+        android:id="@+id/id_tags"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Tags"
+        android:background="@drawable/input"
+        android:padding="10dp"
+        android:layout_below="@id/id_initial_stock"
+        android:drawableLeft="@drawable/input"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_product_image"
+        android:layout_below="@+id/id_tags"
+        android:src="@drawable/signup_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/id_select_image_btn"
+        android:text="Upload your product image\n (Optional)"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_below="@+id/id_tags"
+        android:layout_toRightOf="@+id/id_product_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+    <Button
+        android:text="Submit"
+        android:id="@+id/id_submit_btn_add_frag"
+        android:layout_below="@+id/id_product_image"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>
