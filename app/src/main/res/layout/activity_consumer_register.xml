@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.myui.RegisterActivity">
-
+    tools:context=".ConsumerRegisterActivity">
 
 
     <ScrollView
@@ -35,9 +34,6 @@
                 android:gravity="center"
                 android:layout_height="wrap_content" />
 
-
-
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_margin="8dp"
@@ -49,6 +45,8 @@
                 android:id="@+id/id_name_signUp"
                 android:textColor="@android:color/black"
                 android:layout_height="wrap_content" />
+
+            <!--
             <RadioGroup
                 android:id="@+id/radiogroup"
                 android:layout_width="wrap_content"
@@ -82,10 +80,10 @@
                     android:layout_marginLeft="50dp"
                     />
             </RadioGroup>
+        -->
 
 
-
-
+            <!--
             <EditText
                 android:layout_width="match_parent"
                 android:layout_margin="8dp"
@@ -96,8 +94,10 @@
                 android:drawableLeft="@drawable/email"
                 android:id="@+id/id_loation_signUp"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+                -->
 
             <EditText
                 android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                 android:hint="Enter Email"
                 android:background="@drawable/input"
                 android:padding="2dp"
+
                 android:drawableLeft="@drawable/email"
                 android:id="@+id/id_email_signUp"
                 android:textColor="@android:color/black"
@@ -118,6 +119,7 @@
                 android:background="@drawable/input"
                 android:drawableLeft="@drawable/password"
                 android:padding="2dp"
+
                 android:id="@+id/id_pass_signUp"
                 android:inputType="textPassword"
                 android:textColor="@android:color/black"
@@ -165,7 +167,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 

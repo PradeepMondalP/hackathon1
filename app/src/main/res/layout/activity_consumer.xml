@@ -22,15 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        <EditText
+        <TextView
             android:id="@+id/id_search_item_consumer"
             android:padding="15dp"
+            android:layout_toLeftOf="@+id/id_search"
             android:layout_margin="8dp"
             android:background="@drawable/input"
             android:drawableLeft="@drawable/ic_search"
             android:hint="Search your items"
             android:layout_below="@+id/id_main_app_bar_consumer"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/id_search"
+            android:layout_margin="10dp"
+            android:text="search"
+            android:layout_below="@+id/id_main_app_bar_consumer"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"/>
 
         <fragment
@@ -41,9 +51,17 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/id_search_item_consumer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             tools:context=".MapsActivity"
             />
+
+
+        <ListView
+            android:id="@+id/id_my_list_view"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/id_map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 

@@ -1,7 +1,6 @@
 package com.example.hackathon10.ui.myui;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,12 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hackathon10.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendUserToRegisterActivity();
-                Toast.makeText(LoginActivity.this, "hii", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -62,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 String mEmail = email.getText().toString().trim();
                 String mPass = pass.getText().toString().trim();
 
-                loginToDatabase(mEmail , mPass);
+                loginToDatabase(mEmail , mPass) ;
             }
         });
 
@@ -98,27 +95,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(task.isSuccessful())
                             {
-//                                mDialog.dismiss();
-//                                Toast.makeText(LoginActivity.this,
-//                                        "welcome ", Toast.LENGTH_SHORT).show();
-//
-//                                mAuth=FirebaseAuth.getInstance();
-//                                currentuserId= mAuth.getCurrentUser().getUid();
-//                                System.out.println("id.........."+ currentuserId);
-//
-//                                String userType = fetchData(currentuserId) ;
-//                                System.out.println("id.....2="+ userType);
-//
-//                                if( userType.equals("Retailer") )
-//                                {
-//                                    sendUserToRetailerActivity();
-//
-//                                }
-//                                else if(userType.equals("Consumer"))
-//                                {
-//                                    sendUserToConsumeractivity();
-//                                }
-
                                 startActivity(new Intent(getApplicationContext() ,
                                         ConsumerActivity.class));
 
@@ -134,38 +110,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         }
-
-
-
-    private String fetchData(final String currentuserId) {
-
-
-       DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-       userRef.child(currentuserId).addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-               if(dataSnapshot.exists())
-               {
-                   System.out.println("data exits.....");
-                   fetchingCustomerType = dataSnapshot.child("customer_type").getValue().toString();
-                   System.out.println("customer type = "+ fetchingCustomerType);
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-       });
-
-       return fetchingCustomerType;
-
-
-
-    }
-
 
 
 
@@ -195,33 +139,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendUserToRegisterActivity()
     {
-        Intent intent = new Intent(getApplicationContext() , RegisterActivity.class);
+        Intent intent = new Intent(getApplicationContext() , HomeActivity.class);
         startActivity(intent);
 
     }
-
-    private void sendUserToRetailerActivity() {
-        startActivity(new Intent(getApplicationContext(),RetailerActivity.class));
-
-    }
-
-    private void sendUserToConsumeractivity()
-    {
-        startActivity(new Intent(getApplicationContext(),ConsumerActivity.class));
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(mUser!=null)
-        {
-              startActivity(new Intent(getApplicationContext() , ConsumerActivity.class));
-              finish();
-        }
-    }
-
 
 }

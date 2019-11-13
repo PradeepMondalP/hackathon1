@@ -1,4 +1,4 @@
-package com.example.hackathon10.ui.myui;
+package com.example.hackathon10;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +10,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hackathon10.R;
+import com.example.hackathon10.ui.myui.ConsumerActivity;
+import com.example.hackathon10.ui.myui.LoginActivity;
+import com.example.hackathon10.ui.myui.RetailerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,45 +23,29 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class ConsumerRegisterActivity extends AppCompatActivity {
 
-    private EditText email , pass , verify_pass , name , location ;
+    private EditText email , pass , verify_pass , name  ;
     private Button createAccountBtn;
     private TextView logIn;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
     private DatabaseReference rootRef , userRef  , consumerRef , retailerRef;
     private String currentUserID;
-    private RadioGroup radioGroup;
-    private RadioButton radioConsumer , radioRetailer;
 
-    private String radioStatus;
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        
-        
-        initialize();
+        setContentView(R.layout.activity_consumer_register);
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i)
-                {
-                    case R.id.consumer:
-                        radioStatus  ="Consumer";
-                        break;
-                    case R.id.retailer:
-                        radioStatus  ="Retailer";
-                        break;
-                }
-            }
-        });
+        initialize();
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +63,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String mPass = pass.getText().toString().trim();
                 String mVerifyPass = verify_pass.getText().toString().trim();
                 String mName = name.getText().toString();
-                String mLocation = location.getText().toString();
 
-                createAccountInDatabse(mEmail ,mPass ,mVerifyPass , mName , mLocation);
+                createAccountInDatabse(mEmail ,mPass ,mVerifyPass , mName );
             }
         });
-
-
     }
+
+
 
     private void sendUserToLoginActivity() {
         Intent intent = new Intent(getApplicationContext() , LoginActivity.class);
@@ -104,10 +87,10 @@ public class RegisterActivity extends AppCompatActivity {
         createAccountBtn = (Button)findViewById(R.id.id_register_signUp);
         logIn = (TextView)findViewById(R.id.id_login_signUp);
         name = (EditText)findViewById(R.id.id_name_signUp);
-        location = (EditText)findViewById(R.id.id_loation_signUp);
-        radioConsumer = (RadioButton)findViewById(R.id.consumer);
-        radioRetailer  =(RadioButton)findViewById(R.id.retailer);
-        radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
+        //location = (EditText)findViewById(R.id.id_location_signUp);
+//        radioConsumer = (RadioButton)findViewById(R.id.consumer);
+//        radioRetailer  =(RadioButton)findViewById(R.id.retailer);
+//        radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
 
 
         loadingBar = new ProgressDialog(this);
@@ -119,8 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void createAccountInDatabse(final String mEmail, final  String mPass,
-                                        final String mVerifyPass  , final String mName ,
-                                        final String mLocation)
+                                        final String mVerifyPass  , final String mName )
     {
         if(TextUtils.isEmpty(mEmail))
         {
@@ -137,10 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
             name.setError("Enter a name");
             return;
         }
-        else if(TextUtils.isEmpty(mLocation)){
-            location.setError("Enter a location");
-            return;
-        }
+
         else if(TextUtils.isEmpty(mVerifyPass) || mVerifyPass.length()<7)
         {
             verify_pass.setError("Enter the correct pass again ");
@@ -153,8 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
-
-
             loadingBar.setTitle("Creating new Account");
             loadingBar.setMessage("Please wait while creating new Account");
             loadingBar.show();
@@ -167,18 +144,18 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful())
                             {
                                 loadingBar.dismiss();
-                                Toast.makeText(RegisterActivity.this,
+                                Toast.makeText(ConsumerRegisterActivity.this,
                                         "successfully authenticated", Toast.LENGTH_SHORT).show();
 
-                               currentUserID = mAuth.getCurrentUser().getUid().toString();
-                               saveDataToDatabase(mEmail , mLocation , mName , mPass , radioStatus);
+                                currentUserID = mAuth.getCurrentUser().getUid().toString();
+                                saveDataToDatabase(mEmail , mName , mPass );
 
 
                             }
                             else
                             {
                                 loadingBar.dismiss();
-                                Toast.makeText(RegisterActivity.this,
+                                Toast.makeText(ConsumerRegisterActivity.this,
                                         "", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -188,44 +165,45 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void saveDataToDatabase(String mEmail, String mLocation, String mName,
-                                    String mPass , String radioStatus) {
+    private void saveDataToDatabase(String mEmail, String mName,
+                                    String mPass ) {
 
         userRef = rootRef.child("Users");
         Map map = new HashMap();
         map.put("name" , mName);
         map.put("email" , mEmail);
-        map.put("location" , mLocation);
         map.put("password" , mPass);
-        map.put("customer_type" , radioStatus);
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        String  saveCurrentDate = currentDate.format(Calendar.getInstance().getTime());
 
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        String saveCurrentTime = currentTime.format(Calendar.getInstance().getTime());
+        String unikey = currentUserID +saveCurrentDate + saveCurrentTime;
 
-        if(radioStatus.equals("Consumer"))
-        {
-            consumerRef = userRef.child(currentUserID);
-            consumerRef.updateChildren(map);
-            sendUserToConsumerActivity();
-        }
-        else
-            if(radioStatus.equals("Retailer"))
-            {
-                retailerRef = userRef.child(currentUserID);
-                retailerRef.updateChildren(map);
-                sendUserToRetailerActivity();
+        DatabaseReference tempRef =  userRef.child("Consumer").child(currentUserID)
+                .child(unikey);
+
+      tempRef .updateChildren(map)
+        .addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(ConsumerRegisterActivity.this,
+                            "account created sucesfully", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(),ConsumerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(ConsumerRegisterActivity.this,
+                            "could create account", Toast.LENGTH_SHORT).show();
+                }
             }
-
+        });
     }
-
-    private void sendUserToRetailerActivity()
-    {
-        startActivity(new Intent(getApplicationContext(), RetailerActivity.class));
-    }
-
-    private void sendUserToConsumerActivity()
-    {
-        startActivity(new Intent(getApplicationContext(), ConsumerActivity.class));
-
-    }
-
 
 }

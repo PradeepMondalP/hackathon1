@@ -15,10 +15,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hackathon10.R;
@@ -26,10 +31,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ConsumerActivity extends AppCompatActivity
         implements OnMapReadyCallback, LocationListener {
@@ -38,9 +53,18 @@ public class ConsumerActivity extends AppCompatActivity
     private NavigationView navigationView;
     private FirebaseAuth mAuth;
 
+    private DatabaseReference rootRef;
     //map
     private GoogleMap mMap;
     LocationManager locationManager;
+
+
+    private Button searchBtn;
+    private String []itemsArray;
+    private TextView autoCompleteTextView;
+    private ListView listView;
+
+    private ArrayAdapter<String>adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +107,128 @@ public class ConsumerActivity extends AppCompatActivity
         });
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.id_map_fragment);
         mapFragment.getMapAsync(this);
 
+        getAllValues();
+
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String text = autoCompleteTextView.getText().toString();
+                if(TextUtils.isEmpty(text))
+                {
+                    autoCompleteTextView.setError("enter something");
+                    return;
+                }
+                else
+                {
+                    String []matchedString = findPattern(text , itemsArray);
+
+                    ArrayList<String> tempList = new ArrayList();
+
+                    for(int i = 0 ; i<matchedString.length ; i++)
+                    {
+                        if((matchedString[i]==null))
+                        {
+                           continue;
+                        }
+                        else
+                        {
+                            tempList.add( matchedString[i]);
+                        }
+                    }
+                    String []temp = new String[tempList.size()];
+                    for(int i = 0 ; i<tempList.size() ; i++)
+                    {
+                         temp[i] = tempList.get(i);
+                    }
+
+                    adapter = new ArrayAdapter<String>(getApplicationContext(),
+                            android.R.layout.simple_list_item_1 , temp);
+
+
+
+                    for(String x : temp)
+                    {
+                        System.out.println("matched  STring is ...."+x +"\n");
+                    }
+
+                    listView.setAdapter(adapter);
+                }
+
+
+            }
+        });
+
+
     }
+
+    private String[] findPattern(String text, String[] itemsArray) {
+
+            String array[] = new String[itemsArray.length];
+           int start=0;
+          for(int i= 0;i<itemsArray.length;i++)
+               {
+                    if(text.length()<=itemsArray[i].length())
+                    {
+                        String ss=itemsArray[i].substring(0,text.length());
+                        if(ss.equalsIgnoreCase(text) )
+                        {
+                            array[start++]=itemsArray[i];
+                        }
+                    }
+               }
+          return array;
+    }
+
+    private void getAllValues() {
+        DatabaseReference all_retailer_ref = rootRef.child("All_retailer_product");
+
+        System.out.println("getting all value.....................................");
+
+        all_retailer_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                     Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                    Iterator it = iterable.iterator();
+
+                    DataSnapshot obj;
+                    ArrayList<String> list = new ArrayList();
+                    while (it.hasNext())
+                    {
+                        obj =(DataSnapshot) it.next();
+                        list.add(obj.getKey());
+                    }
+                    System.out.println("list is ...........\n"+ list);
+
+                    itemsArray = new String[list.size()];
+
+                    for(int i=0 ; i<itemsArray.length ; i++)
+                    {
+                        itemsArray[i] = list.get(i);
+                        System.out.println("array elemst\t"+itemsArray[i]+"\n");
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
 
     private void toast(String order) {
         Toast.makeText(this, ""+ order, Toast.LENGTH_SHORT).show();
@@ -101,6 +242,11 @@ public class ConsumerActivity extends AppCompatActivity
         navigationView = (NavigationView)findViewById(R.id.id_navigationView_consumer);
 
         mAuth = FirebaseAuth.getInstance();
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        autoCompleteTextView = (TextView) findViewById(R.id.id_search_item_consumer);
+        listView = (ListView)findViewById(R.id.id_my_list_view);
+        searchBtn = (Button)findViewById(R.id.id_search);
     }
 
     @Override
@@ -155,7 +301,10 @@ public class ConsumerActivity extends AppCompatActivity
         LatLng cur_LatLng = new LatLng(cur_Loc.getLatitude(), cur_Loc.getLongitude());
         mMap.addMarker(new MarkerOptions().position(cur_LatLng).title("Marker in Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cur_LatLng));
-        mMap.setMaxZoomPreference(mMap.getMaxZoomLevel());
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
+                target(cur_LatLng).zoom(17).build()));
+
+
     }
 
     @Override
