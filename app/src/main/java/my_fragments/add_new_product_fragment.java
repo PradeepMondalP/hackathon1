@@ -180,6 +180,9 @@ public class add_new_product_fragment extends Fragment {
                         Toast.makeText(getContext(),
                                 "products added", Toast.LENGTH_SHORT).show();
 
+                        // disaapear the fragment here
+
+
                     }
                     else
                     {

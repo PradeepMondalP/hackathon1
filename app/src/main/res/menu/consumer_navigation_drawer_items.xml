@@ -5,7 +5,7 @@
         android:checkableBehavior="single">
 
         <item
-            android:title="Consumer"
+            android:title="Consumer activity"
             android:icon="@mipmap/sample"/>
 
         <item

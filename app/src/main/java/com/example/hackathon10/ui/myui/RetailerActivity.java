@@ -84,6 +84,7 @@ public class RetailerActivity extends AppCompatActivity {
 
             add_new_product_fragment obj = new add_new_product_fragment();
             transaction.add(R.id.id_my_retailer_fram_lay , obj , null);
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     }

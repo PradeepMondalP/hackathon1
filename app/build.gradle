@@ -64,7 +64,12 @@ dependencies {
     implementation 'com.yarolegovich:sliding-root-nav:1.1.0'
     implementation 'com.android.support:design:28.+'
 
-    // repeatingfinalProject
+
+
+
+    //map
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 
 }
