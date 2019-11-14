@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.hackathon10.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,13 +33,11 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email , pass;
-    private Button login , phoneLoginBtn;
-    private TextView newAccount;
+    private Button login ;
     private ProgressDialog mDialog;
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
     private DatabaseReference userRef , rootRef;
-    private String currentuserId , fetchingCustomerType="";
+    private Toolbar mToolbar;
 
     private RadioGroup radioGroup;
     private RadioButton radioConsumer , radioRetailer;
@@ -53,13 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         radioRetailer  =(RadioButton)findViewById(R.id.retailer);
         radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
 
-        newAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToRegisterActivity();
-
-            }
-        });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -82,13 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                 String mPass = pass.getText().toString().trim();
 
                 loginToDatabase(mEmail , mPass) ;
-            }
-        });
-
-        phoneLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToPhoneLoginActivity();
             }
         });
 
@@ -141,33 +128,20 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
     private void initialize_id() {
+
+        mToolbar = (Toolbar)findViewById(R.id.id_login_toolbar);
+        setSupportActionBar(mToolbar);
 
         email =(EditText) findViewById(R.id.id_email);
         pass = (EditText) findViewById(R.id.id_pass);
         login = (Button) findViewById(R.id.id_login);
-        newAccount = (TextView) findViewById(R.id.id_signup);
-        phoneLoginBtn = (Button)findViewById(R.id.id_phone);
-
         mAuth = FirebaseAuth.getInstance();
         mDialog = new ProgressDialog(this);
-
         rootRef = FirebaseDatabase.getInstance().getReference();
         userRef = rootRef.child("Users");
 
 
-
-
-    }
-
-    private void sendUserToPhoneLoginActivity() {
-        Intent obj = new Intent(getApplicationContext() , PhoneLoginActivity.class);
-        startActivity(obj);
     }
 
     public void sendUserToRegisterActivity()
@@ -177,4 +151,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sign_up_menu , menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.id_id_sign_up_menu:
+                sendUserToRegisterActivity();
+                break;
+        }
+        return true;
+    }
 }

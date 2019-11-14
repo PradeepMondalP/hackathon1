@@ -7,26 +7,84 @@
     android:layout_height="match_parent"
     tools:context=".ui.myui.HomeActivity">
 
-    <Button
-        android:id="@+id/consumer_button"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:text="Click here to register as a Consumer"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="10dp"
+    <include
+        layout="@layout/my_toolbar"
+        android:id="@+id/id_home_act_toolbar"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_logo_p"
+        android:layout_width="250dp"
+        android:layout_above="@+id/id_rel_1"
+        android:layout_below="@+id/id_home_act_toolbar"
+        android:layout_marginLeft="70dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/login_photo"
         />
 
-    <Button
-        android:id="@+id/retailer_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
-        android:text="Click here to register as a Retailer"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/consumer_button"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="40dp"
-        />
+    <RelativeLayout
+        android:id="@+id/id_rel_1"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="As Consumer"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:text="As Retailer"
+            android:layout_alignParentEnd="true"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_rel_2"
+        android:layout_below="@+id/id_rel_1"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/consumer_button"
+            android:layout_width="wrap_content"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Sign Up"
+            />
+
+        <Button
+            android:id="@+id/retailer_button"
+            android:layout_width="wrap_content"
+            android:padding="15dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button"
+            android:text="Sign Up"
+            android:layout_centerVertical="true"
+
+            />
+
+    </RelativeLayout>
+
+
+
+
 </RelativeLayout>

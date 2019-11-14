@@ -2,6 +2,7 @@ package com.example.hackathon10.ui.myui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -17,12 +18,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hackathon10.ConsumerRegisterActivity;
 import com.example.hackathon10.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -52,12 +50,13 @@ public class RetailerRegisterActivity extends AppCompatActivity
     private TextView logIn;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
-    private DatabaseReference rootRef , userRef  , consumerRef , retailerRef;
     private String currentUserID;
-
+    private Toolbar mToolbar;
     private GoogleMap mMap;
     LocationManager locationManager;
     LatLng cur_LatLng;
+
+    private DatabaseReference rootRef;
 
 
     @Override
@@ -108,6 +107,11 @@ public class RetailerRegisterActivity extends AppCompatActivity
     }
 
     private void initialize() {
+
+        mToolbar = (Toolbar)findViewById(R.id.id_toolbar_retailer_register);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
 

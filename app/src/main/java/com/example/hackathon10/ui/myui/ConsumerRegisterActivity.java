@@ -1,7 +1,8 @@
-package com.example.hackathon10;
+package com.example.hackathon10.ui.myui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,9 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hackathon10.ui.myui.ConsumerActivity;
-import com.example.hackathon10.ui.myui.LoginActivity;
-import com.example.hackathon10.ui.myui.RetailerActivity;
+import com.example.hackathon10.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,8 +34,10 @@ public class ConsumerRegisterActivity extends AppCompatActivity {
     private TextView logIn;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
-    private DatabaseReference rootRef , userRef  , consumerRef , retailerRef;
+    private DatabaseReference rootRef , userRef ;
     private String currentUserID;
+
+    private Toolbar mToolbar;
 
 
 
@@ -78,6 +79,10 @@ public class ConsumerRegisterActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        mToolbar = (Toolbar)findViewById(R.id.id_toolbar_customer_register);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
 

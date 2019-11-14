@@ -13,17 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConsumerRegisterActivity"></activity>
-        <activity android:name=".ui.myui.HomeActivity" />
+
+        <activity android:name=".ui.myui.ConsumerRegisterActivity"
+            android:parentActivityName=".ui.myui.LoginActivity"></activity>
+        <activity android:name=".ui.myui.HomeActivity"
+            android:parentActivityName=".ui.myui.LoginActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity android:name=".ui.myui.RetailerActivity" />
+
         <activity android:name=".ui.myui.ConsumerActivity" />
-        <activity android:name=".ui.myui.PhoneLoginActivity" />
-        <activity android:name=".ui.myui.RetailerRegisterActivity" />
+
+        <activity android:name=".ui.myui.RetailerRegisterActivity"
+            android:parentActivityName=".ui.myui.LoginActivity"/>
+
         <activity android:name=".ui.myui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

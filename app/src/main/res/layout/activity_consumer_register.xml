@@ -5,11 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConsumerRegisterActivity">
+    tools:context=".ui.myui.ConsumerRegisterActivity">
 
+    <include
+        android:id="@+id/id_toolbar_customer_register"
+        layout="@layout/my_toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@+id/id_toolbar_customer_register"
         android:layout_height="wrap_content">
 
         <LinearLayout

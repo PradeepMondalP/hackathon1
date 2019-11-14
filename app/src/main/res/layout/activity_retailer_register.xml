@@ -7,10 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.myui.RetailerRegisterActivity">
 
-
+    <include
+        android:id="@+id/id_toolbar_retailer_register"
+        layout="@layout/my_toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@+id/id_toolbar_retailer_register"
         android:layout_height="wrap_content">
 
         <LinearLayout
